@@ -1,0 +1,121 @@
+.form-img-outer{
+    background: url("../images/bg.jpg") no-repeat;
+    background-size: 100% 100%;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+}
+.name_head_content{
+    width: 100%;
+    
+}
+img.name_head_img{
+    margin-left: 35%;
+    margin-top: 1rem;
+}
+.large-header{
+    width: 100%;
+}
+.form-signin{
+    position:relative;
+    text-align:left;
+    width:90%;
+    padding:0px;
+    margin:0.6rem auto;
+    background-color:rgba(46,46,46,.61);
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+    -webkit-box-shadow:0 0 20px 0 #009688;
+    -moz-box-shadow:0 0 20px 0 #009688;
+    box-shadow:0 0 20px 0 #009688;
+}
+.input-label-all{
+    width: 90%;
+    margin: auto;
+    padding: 0.4rem 0;
+}
+.user-input{
+    border: 2px solid #fff;
+    margin: 0.2rem;
+}
+img.icon_user{
+    width: 0.6rem;
+    padding-left: 0.2rem;
+}
+p.form-signin-heading{position:absolute;margin-top:-50px;font-size:22px;margin-left:38px;color:#fff;}
+.form-signin .input-block-level{
+    background-color:transparent;
+    color:#fff;
+    font-size:0.32rem;
+    height:auto;
+    padding:7px;
+    *width:283px;
+    border: none;
+}
+input:focus{
+    outline: none;
+    background-color: transparent;
+}
+
+  /* input框的字体颜色 */
+  ::-webkit-input-placeholder {
+    color: #bebebe;
+  }
+  :-moz-placeholder {/* Firefox 18- */
+    color: #bebebe;
+  }
+  ::-moz-placeholder{/* Firefox 19+ */
+   color: #bebebe;
+  }
+  :-ms-input-placeholder {
+    color: #bebebe;
+  }
+
+.btn_login_con{
+    width: 100%;
+}
+.btn_login{
+    background-color: #009688;
+    color: #fff;
+    padding: 0.26rem 2rem;
+    width: 94.2%;
+    margin-left: 0.18rem;
+    border: 1px solid #009688;
+    font-size: 0.36rem;
+}
+.remember-me{
+    color: #fff;
+    margin:0.1rem  0.15rem;
+    position: absolute;
+    font-size: 0.3rem;
+}
+.to_regist{
+    font-size: 0.3rem;
+    margin-left: 4.8rem;
+    margin-top: 0.3rem;
+}
+.to_regist a{
+    color: #bebebe;
+}
+
+.footer{color: #bebebe;}
+
+
+a:hover,a:visited,a:active,a:link{text-decoration: none;}
+    .re_password{
+        position:absolute;
+        right:30px;
+        font-size: 0.3rem;
+    }
+    .footer{
+        font-size: 0.28rem;
+        position: fixed;
+        bottom: 0;
+        text-align: center;
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    .footer span{
+        color: #009688;
+    }
