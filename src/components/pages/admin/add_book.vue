@@ -12,6 +12,11 @@
           </div>
 
           <div class="r_item">
+              <span class="r_tit">价钱（必填）</span>
+              <input class="r_input" type="text" placeholder="请输入价钱" v-model="price">
+          </div>
+
+          <div class="r_item">
               <span class="r_tit">书封面地址</span>
               <input class="r_input validate" type="text" placeholder="请选择" v-model="imgUrl">
               <div class="get_file">
@@ -43,7 +48,8 @@ export default {
       name: '',
       author: '',
       brief: '',
-      imgUrl: ''
+      imgUrl: '',
+      price: '',
     }
   },
   methods:{
@@ -77,10 +83,10 @@ export default {
         name:this.name,
         author:this.author,
         brief:this.brief,
-        imgIcon:this.imgUrl
+        imgIcon:this.imgUrl,
+        price:this.price,
       }
-      this.$http.post(this.BaseUrl + "api/book/add",params,
-      headerJSON)
+      this.$http.post(this.BaseUrl + "api/book/add",params,{header:{'content-type': 'application/json;charset=UTF-8'}})
       .then(
         res => {
           console.log(res.body);

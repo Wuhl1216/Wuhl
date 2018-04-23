@@ -41,7 +41,7 @@ export default {
     mounted(){
             this.imgUrl = this.BaseUrl;
             this.$http.get(this.BaseUrl + "api/book/search/" + encodeURI(this.$route.params.author),
-                this.headerJSON)
+                {header:{'content-type': 'application/json;charset=UTF-8'}})
             .then(
                 res => {
                     if(res.body.length == 0){
@@ -91,7 +91,7 @@ export default {
 }
 .content{
     border-bottom: 1px solid rgb(160, 159, 159);
-    height: 2.5rem;
+    height: 2.8rem;
 }
 .content_left{
     width: 2rem;
@@ -117,7 +117,7 @@ export default {
     color: #ccc;
 }
 .right_author{
-    margin-top: 0.5rem;
+    margin-top: 0.2rem;
     color: #ccc;
 }
 </style>

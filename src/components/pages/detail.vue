@@ -1,6 +1,6 @@
 <template>
     <div class="page">
-        <mt-header title="马克思传" :class="searchBarChange == true?'isChange':''">
+        <mt-header title="飘洋过海来看你" :class="searchBarChange == true?'isChange':''">
             <router-link to="/newBook" slot="left">
                 <mt-button >
                     <img slot="icon" src="../../assets/images/back.png" alt="">

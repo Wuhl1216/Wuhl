@@ -15,7 +15,7 @@
         </div>
         <!-- 搜索历史 -->
         <div class="history_title">搜索历史</div>
-        <div v-for="(history,index) in historys" v-if='index<=3'>
+        <div @click="historySearch(history)" v-for="(history,index) in historys" v-if='index<=3'>
             <div class="history_content">
                 <img src="../../assets/images/icon_search.png" alt="" class="icon_user">
                 <div class="history_book">{{history}}</div>
@@ -37,6 +37,10 @@ export default {
     methods:{
         search(){
             this.$router.push('/newBook/'+ this.keywork);
+        },
+        historySearch(keyword){
+            this.$router.push('/newBook/'+ keyword);
+            console.log(keyword);
         },
         deleted(){
             this.$http.delete(this.BaseUrl + 'api/book/search/history/user')

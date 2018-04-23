@@ -74,7 +74,7 @@ export default {
                 password: this.Password
                 
             }
-            this.$http.post(this.BaseUrl + "api/user/register",params,this.headerJSON)
+            this.$http.post(this.BaseUrl + "api/user/register",params,{header:{'content-type': 'application/json;charset=UTF-8'}})
             .then(
                 res => {
                 console.log(res);

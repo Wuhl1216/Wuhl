@@ -8,7 +8,7 @@
             </router-link>
         </mt-header>
 
-        <div style="padding-top:1rem;">
+        <div style="padding-top:0.5rem;">
             <div class="content" @click="toDetails">
                 <div class="content_left">
                     <img src="../../assets/images/liu.jpg" alt="">
@@ -18,11 +18,11 @@
                     <div class="right_res">【简介】重读马克思，坚定理想信念！</div>
                     <div class="right_author">张光明</div>
                     <div class="right_money">￥19.9</div>
-                    <div class="add_cart">
-                        <img src="../../assets/images/add.png" alt="">
-                        <span>购物车</span>
-                    </div>
+                    
                 </div>
+            </div>
+            <div class="add_cart">
+                <span>+ 购物车</span>
             </div>
             <div class="content">
                 <div class="content_left">
@@ -33,11 +33,10 @@
                     <div class="right_res">【简介】重读马克思，坚定理想信念！</div>
                     <div class="right_author">张光明</div>
                     <div class="right_money">￥19.9</div>
-                    <div class="add_cart">
-                        <img src="../../assets/images/add.png" alt="">
-                        <span>购物车</span>
-                    </div>
                 </div>
+            </div>
+            <div class="add_cart">
+                <span>+ 购物车</span>
             </div>
         </div>
     </div>
@@ -82,7 +81,7 @@ export default {
 .content_left{
     width: 2rem;
     margin-left: 0.35rem;
-    margin-top: 0.2rem;
+    margin-top: 0.8rem;
 }
 .content_left img{
     width: 1.8rem;
@@ -107,9 +106,9 @@ export default {
     color: #ccc;
 }
 .right_money{color: rgb(86, 170, 248);margin-top: 0.3rem;}
-.add_cart{border: 1px solid #56aaf8;width: 30%; color: #56aaf8;padding: 0rem 0.2rem 0.18rem;
-border-radius: 0.1rem;margin-left: 2.5rem;margin-top: -0.4rem;}
+.add_cart{color: #56aaf8;margin-left: 5.5rem;margin-top: -1.4rem;}
 .add_cart img{width: 0.4rem;margin-top: 0.1rem;margin-bottom: -0.1rem;}
-.add_cart span{margin-bottom: 0.1rem;font-size: 0.20rem;}
+.add_cart span{margin-bottom: 0.1rem;font-size: 0.20rem;
+border: 1px solid;padding: 0.1rem 0.25rem;border-radius: 0.1rem;}
 </style>
 

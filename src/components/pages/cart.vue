@@ -15,40 +15,35 @@
                     <div class="product-info">
                         <h6>{{item.pro_name}}</h6>
                         <p>品牌：韩国{{item.pro_brand}}&nbsp;&nbsp;产地：{{item.pro_place}}</p>
-                        <p>规格/纯度:{{item.pro_purity}}&nbsp;&nbsp;起定量：{{item.pro_min}}</p>
+                        <p>规格/纯度:{{item.pro_purity}}&nbsp;&nbsp;</p>
                         <p>配送仓储：{{item.pro_depot}}</p>
                     </div>
                     <div class="clearfix"></div>
-                </td>
-                <td class="td-num">
+
                     <div class="product-num">
                         <a href="javascript:;" class="num-reduce num-do fl" @click="item.pro_num--">-<span></span></a>
                         <input type="text" class="num-input" v-model="item.pro_num">
                         <a href="javascript:;" class="num-add num-do fr" @click="item.pro_num++">+<span></span></a>
                     </div>
+
+                    <p class="red-text">单价：￥<span class="price-text">{{item.pro_price.toFixed(2)}}</span></p>
+
+                    <a href="javascript:;" class="product-delect" @click="deleteOneProduct(index)">删除</a>
                 </td>
-                <td class="td-price">
-                    <p class="red-text">￥<span class="price-text">{{item.pro_price.toFixed(2)}}</span></p>
-                </td>
-                <td class="td-total">
-                    <p class="red-text">￥<span class="total-text">{{item.pro_price*item.pro_num}}</span></p>
-                </td>
-                <td class="td-do"><a href="javascript:;" class="product-delect" @click="deleteOneProduct(index)">删除</a></td>
             </tr>
         
             
             </tbody></table>
     </div>
     <div class="cart-product-info">
-        <a class="delect-product" href="javascript:;" @click="deleteProduct"><span></span>删除所选商品</a>
-        <a class="keep-shopping" href="#"><span></span>继续购物</a>
-        <a class="btn-buy fr" href="javascript:;">去结算</a>
-        <p class="fr product-total">￥<span>{{getTotal.totalPrice}}</span></p>
-        <p class="fr check-num"><span>{{getTotal.totalNum}}</span>件商品总计（不含运费）：</p>
-    </div>
-    <div class="cart-worder clearfix">
-        <a href="javascript:;" class="choose-worder fl"><span></span>绑定跟单员</a>
-        <div class="worker-info fl">
+        <div style="margin-bottom:55px;">
+            <a class="delect-product" href="javascript:;" @click="deleteProduct"><span></span>删除所选商品</a>
+            <a class="keep-shopping" href="#"><span></span>继续购物</a>
+        </div>
+        <div class="buy_bottom">
+            <a class="btn-buy fr" href="javascript:;">去结算</a>
+            <p class="fr product-total">￥<span>{{getTotal.totalPrice}}</span></p>
+            <p class="fr check-num"><span>{{getTotal.totalNum}}</span>件商品总计：</p>
         </div>
     </div>
 </div>
@@ -60,6 +55,17 @@ export default {
   data(){
       return {
           productList:[
+            {
+                'pro_name': '【斯文】甘油 | 丙三醇',//产品名称
+                'pro_brand': 'skc',//品牌名称
+                'pro_place': '韩国',//产地
+                'pro_purity': '99.7%',//规格
+                'pro_min': "215千克",//最小起订量
+                'pro_depot': '上海仓海仓储',//所在仓库
+                'pro_num': 3,//数量
+                'pro_img': '../../images/ucenter/testimg.jpg',//图片链接
+                'pro_price': 800//单价
+            },
             {
                 'pro_name': '【斯文】甘油 | 丙三醇',//产品名称
                 'pro_brand': 'skc',//品牌名称
@@ -169,8 +175,6 @@ export default {
         }
         img{vertical-align: middle;}
         .page-shopping-cart {
-            width: 1200px;
-            margin: 50px auto;
             font-size: 14px;
             border: 1px solid #e3e3e3;
             border-top: 2px solid #317ee7; }
@@ -181,7 +185,16 @@ export default {
             padding-left: 20px;
             line-height: 68px; }
         .page-shopping-cart .red-text {
-            color: #e94826; }
+            color: #e94826;
+            margin-left: 110px;
+            margin-top: -25px;}
+        .product-delect{
+            float: right;
+            background: #e94826;
+            color: #fff;
+            padding: 5px 20px;
+            margin-top: -23px;
+        }
         .page-shopping-cart .check-span {
             display: block;
             width: 40px;
@@ -207,7 +220,8 @@ export default {
             border-bottom: 1px solid #e3e3e3; }
         .page-shopping-cart .cart-product-title .td-product {
             text-align: center;
-            font-size: 14px; }
+            font-size: 14px; 
+            width: 208px;}
         .page-shopping-cart .cart-product-title .td-check {
             text-align: left; }
         .page-shopping-cart .cart-product-title .td-check .check-span {
@@ -375,5 +389,9 @@ export default {
         .choose-worker-box .worker-list li img {
             border: 1px solid #fff;
             border-radius: 100%; }
+        .buy_bottom{
+            position:fixed;bottom:0;left:0;right:0;background: #fff;
+            border-top:1px solid #ccc;width: 100%;
+        }
 </style>
 
