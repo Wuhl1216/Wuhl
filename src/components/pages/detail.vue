@@ -28,7 +28,7 @@
                     <span class="btn_no">免费试读</span>
                 </div>
             </div>
-            <div class="head_bottom">
+            <div class="head_bottom"> 
                 <span><img src="../../assets/images/icon_setting.png" alt="">加入购物车</span>
                 <span><img src="../../assets/images/icon_setting.png" alt="">收藏</span>
                 <span><img src="../../assets/images/icon_setting.png" alt="">下载到书架</span>
@@ -233,6 +233,7 @@ border-radius: 0.5rem;}
 }
 .head_bottom span{
     margin: 0.2rem 0.3rem;
+    
 }
 .head_bottom span img{
     width: 0.3rem;

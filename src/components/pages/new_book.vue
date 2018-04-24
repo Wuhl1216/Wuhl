@@ -9,14 +9,17 @@
         </mt-header>
 
         <div style="padding-top:1rem;">
-            <div class="content" @click="toDetails" v-for="(item ,index) in datas" :key="index">
-                <div class="content_left">
+            <div class="content" v-for="(item ,index) in datas" :key="index">
+                <div class="content_left" @click="toDetails">
                     <img :src="imgUrl + item.imgIcon" alt="">
                 </div>
-                <div class="content_right">
+                <div class="content_right" @click="toDetails">
                     <h2>{{item.name}}</h2>
                     <div class="right_res">{{item.brief}}</div>
                     <div class="right_author">{{item.author}}</div>
+                </div>
+                <div @click="addCart(item.name,item.author)" class="add_cart">
+                    <span>+ 购物车</span>
                 </div>
             </div>
             
@@ -36,6 +39,18 @@ export default {
     methods:{
         toDetails(){
             this.$router.push({path:'/detail'});
+        },
+        addCart(name,author){
+            
+            this.$http.post(this.BaseUrl + "api/book/shop/user/" + name + "/" + author + "/" + 1)
+            .then(
+                res => {
+                    console.log(res);
+                },
+                err => {
+                    console.log(err);
+                }
+            )
         }
     },
     mounted(){
@@ -91,7 +106,7 @@ export default {
 }
 .content{
     border-bottom: 1px solid rgb(160, 159, 159);
-    height: 2.8rem;
+    height: 3rem;
 }
 .content_left{
     width: 2rem;
@@ -115,10 +130,14 @@ export default {
 .right_res{
     margin-top: 0.4rem;
     color: #ccc;
+    height: 61px;
 }
 .right_author{
     margin-top: 0.2rem;
     color: #ccc;
 }
+.add_cart{color: #56aaf8;right: 10px;position: fixed;margin-top: -65px;}
+.add_cart span{margin-bottom: 0.1rem;font-size: 0.20rem;
+border: 1px solid;padding: 0.1rem 0.25rem;border-radius: 0.1rem;}
 </style>
 

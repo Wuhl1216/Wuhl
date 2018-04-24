@@ -107,7 +107,6 @@ export default {
 }
 .right_money{color: rgb(86, 170, 248);margin-top: 0.3rem;}
 .add_cart{color: #56aaf8;margin-left: 5.5rem;margin-top: -1.4rem;}
-.add_cart img{width: 0.4rem;margin-top: 0.1rem;margin-bottom: -0.1rem;}
 .add_cart span{margin-bottom: 0.1rem;font-size: 0.20rem;
 border: 1px solid;padding: 0.1rem 0.25rem;border-radius: 0.1rem;}
 </style>
