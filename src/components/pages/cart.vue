@@ -1,148 +1,149 @@
 <template>
     <div>
+        <mt-header title="购物车">
+            <router-link to="/" slot="left">
+                <mt-button >
+                    <img slot="icon" src="../../assets/images/back.png" alt="">
+                </mt-button>
+            </router-link>
+            <mt-button slot="right">
+            </mt-button>
+        </mt-header>
         <div class="page-shopping-cart" id="shopping-cart">
-    <h4 class="cart-title">购物清单</h4>
-    <div class="cart-product-title clearfix">
-        <div class="td-check fl"><span class="check-span fl check-all" :class="{'check-true':isSelectAll}" 
-        @click="selectProduct(isSelectAll)"></span>全选</div>
-        <div class="td-product fl">商品</div>
-    </div>
-    <div class="cart-product clearfix">
-        <table>
-            <tbody><tr v-for="(item,index) in productList">
-                <td class="td-check"><span class="check-span" @click="item.select=!item.select" :class="{'check-true':item.select}"></span></td>
-                <td class="td-product"><img src="../../assets/images/icon_books_1.png" width="98" height="98">
-                    <div class="product-info">
-                        <h6>{{item.pro_name}}</h6>
-                        <p>品牌：韩国{{item.pro_brand}}&nbsp;&nbsp;产地：{{item.pro_place}}</p>
-                        <p>规格/纯度:{{item.pro_purity}}&nbsp;&nbsp;</p>
-                        <p>配送仓储：{{item.pro_depot}}</p>
-                    </div>
-                    <div class="clearfix"></div>
+            <h4 class="cart-title">购物清单</h4>
+            <div class="cart-product-title clearfix">
+                <div class="td-check fl"><span class="check-span fl check-all" :class="{'check-true':isSelectAll}" 
+                @click="selectProduct(isSelectAll)"></span>全选</div>
+                <div class="td-product fl">商品</div>
+            </div>
+            <div class="cart-product clearfix">
+                <table>
+                    <tbody><tr v-for="(item,index) in productList" :key="index">
+                        <td class="td-check"><span class="check-span" @click="item.select=!item.select" :class="{'check-true':item.select}"></span></td>
+                        <td class="td-product"><img :src="imgUrl + item.value.imgIcon" width="80" height="98">
+                            <div class="product-info">
+                                <h6>{{item.value.name}}</h6>
+                                <p>作者：{{item.value.author}}</p>
+                            </div>
+                            <div class="clearfix"></div>
 
-                    <div class="product-num">
-                        <a href="javascript:;" class="num-reduce num-do fl" @click="item.pro_num--">-<span></span></a>
-                        <input type="text" class="num-input" v-model="item.pro_num">
-                        <a href="javascript:;" class="num-add num-do fr" @click="item.pro_num++">+<span></span></a>
-                    </div>
+                            <div class="product-num">
+                                <a href="javascript:;" class="num-reduce num-do fl" @click="item.score--">-<span></span></a>
+                                <input type="text" class="num-input" v-model="item.score">
+                                <a href="javascript:;" class="num-add num-do fr" @click="item.score++">+<span></span></a>
+                            </div>
 
-                    <p class="red-text">单价：￥<span class="price-text">{{item.pro_price.toFixed(2)}}</span></p>
+                            <p class="red-text">单价：￥<span class="price-text">{{item.value.price/100}}</span></p>
 
-                    <a href="javascript:;" class="product-delect" @click="deleteOneProduct(index)">删除</a>
-                </td>
-            </tr>
-        
-            
-            </tbody></table>
-    </div>
-    <div class="cart-product-info">
-        <div style="margin-bottom:55px;">
-            <a class="delect-product" href="javascript:;" @click="deleteProduct"><span></span>删除所选商品</a>
-            <a class="keep-shopping" href="#"><span></span>继续购物</a>
+                            <a href="javascript:;" class="product-delect" @click="deleteOneProduct(item.value.name,item.value.author)">删除</a>
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="cart-product-info">
+                <div style="margin-bottom:55px;">
+                    <a class="delect-product" href="javascript:;" @click="deleteProduct"><span></span>删除所选商品</a>
+                    <a class="keep-shopping" href="#"><span></span>继续购物</a>
+                </div>
+                <div class="buy_bottom">
+                    <a class="btn-buy fr" href="javascript:;">去结算</a>
+                    <p class="fr product-total">￥<span>{{getTotal.totalPrice}}</span></p>
+                    <p class="fr check-num"><span>{{getTotal.totalNum}}</span>件商品总计：</p>
+                </div>
+            </div>
         </div>
-        <div class="buy_bottom">
-            <a class="btn-buy fr" href="javascript:;">去结算</a>
-            <p class="fr product-total">￥<span>{{getTotal.totalPrice}}</span></p>
-            <p class="fr check-num"><span>{{getTotal.totalNum}}</span>件商品总计：</p>
-        </div>
-    </div>
-</div>
     </div>
 </template>
 <script>
+import { Toast } from "mint-ui";
 export default {
-  name: 'page-shopping-cart',
-  data(){
-      return {
-          productList:[
-            {
-                'pro_name': '【斯文】甘油 | 丙三醇',//产品名称
-                'pro_brand': 'skc',//品牌名称
-                'pro_place': '韩国',//产地
-                'pro_purity': '99.7%',//规格
-                'pro_min': "215千克",//最小起订量
-                'pro_depot': '上海仓海仓储',//所在仓库
-                'pro_num': 3,//数量
-                'pro_img': '../../images/ucenter/testimg.jpg',//图片链接
-                'pro_price': 800//单价
+    name: 'page-shopping-cart',
+    data(){
+        return {
+            productList:[],
+            imgUrl: ''
+        }
+    },
+    mounted(){
+        //为productList添加select（是否选中）字段，初始值为true
+        var _this = this;
+        this.productList.map(function(item){
+            _this.$set(item,'select',true);
+        });
+
+        this.$http.get(this.BaseUrl + "api/book/shop/user",{header:{'content-type': 'application/json;charset=UTF-8'}})
+        .then(
+            res => {
+                console.log(res.body);
+                console.log(res);
+                this.imgUrl = this.BaseUrl;
+                this.productList = res.body;
+                
             },
-            {
-                'pro_name': '【斯文】甘油 | 丙三醇',//产品名称
-                'pro_brand': 'skc',//品牌名称
-                'pro_place': '韩国',//产地
-                'pro_purity': '99.7%',//规格
-                'pro_min': "215千克",//最小起订量
-                'pro_depot': '上海仓海仓储',//所在仓库
-                'pro_num': 3,//数量
-                'pro_img': '../../images/ucenter/testimg.jpg',//图片链接
-                'pro_price': 800//单价
-            },
-            {
-                'pro_name': '【斯文】甘油 | 丙三醇',//产品名称
-                'pro_brand': 'skc',//品牌名称
-                'pro_place': '韩国',//产地
-                'pro_purity': '99.7%',//规格
-                'pro_min': "215千克",//最小起订量
-                'pro_depot': '上海仓海仓储',//所在仓库
-                'pro_num': 3,//数量
-                'pro_img': '../../images/ucenter/testimg.jpg',//图片链接
-                'pro_price': 800//单价
-            },
-            {
-                'pro_name': '【斯文】甘油 | 丙三醇',//产品名称
-                'pro_brand': 'skc',//品牌名称
-                'pro_place': '韩国',//产地
-                'pro_purity': '99.7%',//规格
-                'pro_min': "215千克",//最小起订量
-                'pro_depot': '上海仓海仓储',//所在仓库
-                'pro_num': 3,//数量
-                'pro_img': '../../images/ucenter/testimg.jpg',//图片链接
-                'pro_price': 800//单价
+            err => {
+                console.log(err);
             }
-        ]
-      }
-  },
-  mounted(){
-      //为productList添加select（是否选中）字段，初始值为true
-      var _this = this;
-      this.productList.map(function(item){
-          _this.$set(item,'select',true);
-      })
-  },
-  computed:{
-      isSelectAll(){
-          //如果productList中每一条数据的select都为true，返回true，否则返回false;
-          return this.productList.every(function(val){return val.select});
-      },
-      getTotal(){
-          var _proList = this.productList.filter(function(val){return val.select});
-          var totalPrice = 0;
-          for(var i=0,len=_proList.length;i<len;i++){
-              totalPrice+=_proList[i].pro_num*_proList[i].pro_price;
-          }
-          return {totalNum:_proList.length,totalPrice:totalPrice}
-      }
-  },
-  methods:{
-      selectProduct(_isSelect){
-          for(var i=0,len = this.productList.length;i<len;i++){
-              this.productList[i].select = !_isSelect;
-          }
-      },
-      //删除已经选中(select=true)的产品      
-      deleteProduct(){
-          this.productList=this.productList.filter(function(item){return !item.select})
-      },
-      //删除单条产品
-      deleteOneProduct(index){
-          this.productList.splice(index,1);
-      }
-  }
+        )
+    },
+    computed:{
+        isSelectAll(){
+            //如果productList中每一条数据的select都为true，返回true，否则返回false;
+            return this.productList.every(function(val){return val.select});
+        },
+        getTotal(){
+            var _proList = this.productList.filter(function(val){return val.select});
+            var totalPrice = 0;
+            for(var i=0,len=_proList.length;i<len;i++){
+                totalPrice+=_proList[i].score*_proList[i].price;
+            }
+            return {totalNum:_proList.length,totalPrice:totalPrice}
+        }
+    },
+    methods:{
+        selectProduct(_isSelect){
+            for(var i=0,len = this.productList.length;i<len;i++){
+                this.productList[i].select = !_isSelect;
+            }
+        },
+        //删除已经选中(select=true)的产品      
+        deleteProduct(){
+            this.productList=this.productList.filter(function(item){return !item.select})
+        },
+        //删除单条产品
+        deleteOneProduct(name,author){
+            // this.productList.splice(index,1);
+            this.$http.delete(this.BaseUrl + "api/book/shop/user/" + name + "/" + author)
+            .then(
+                res => {
+                    console.log(res);
+                    this.productList.splice(name,1);
+                    Toast("删除成功");
+                },
+                err => {
+                    console.log(err);
+                }
+            )
+        }
+    }
   
 }
 </script>
 
 <style scoped>
+/* 头部固定条 */
+.mint-header{
+    background-color: rgb(41, 41, 41);
+    border-bottom: 1px solid rgb(160, 159, 159);
+    box-shadow: 0 2px 2px rgb(160, 159, 159);
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+.mint-button-icon img{
+    width: 0.2rem;
+}
+
 .fl{
             float: left;
         }
@@ -177,7 +178,8 @@ export default {
         .page-shopping-cart {
             font-size: 14px;
             border: 1px solid #e3e3e3;
-            border-top: 2px solid #317ee7; }
+            border-top: 2px solid #317ee7;
+            margin-top: 40px; }
         .page-shopping-cart .cart-title {
             color: #317ee7;
             font-size: 16px;
@@ -242,7 +244,10 @@ export default {
         .page-shopping-cart .cart-product table .product-num {
             border: 1px solid #e3e3e3;
             display: inline-block;
-            text-align: center; }
+            text-align: center;
+            position: absolute;
+            margin-left: 109px;
+            margin-top: -55px; }
         .page-shopping-cart .cart-product table .product-num .num-do {
             width: 24px;
             height: 28px;
@@ -275,7 +280,9 @@ export default {
             margin-right: 10px; }
         .page-shopping-cart .cart-product table .td-product .product-info {
             display: inline-block;
-            vertical-align: middle; }
+            vertical-align: middle;
+            margin-top: -55px;
+            margin-left: 15px; }
         .page-shopping-cart .cart-product table .td-do {
             font-size: 12px; }
         .page-shopping-cart .cart-product-info {

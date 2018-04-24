@@ -28,6 +28,7 @@
     </div>
 </template>
 <script>
+import { Toast } from "mint-ui";
 export default {
     name:'page',
     data(){
@@ -46,6 +47,7 @@ export default {
             .then(
                 res => {
                     console.log(res);
+                    Toast("加入成功");
                 },
                 err => {
                     console.log(err);

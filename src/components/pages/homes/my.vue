@@ -22,9 +22,11 @@
 
         </div>
         <div class="content">
-            <mt-cell title="邀请好友" is-link>
-                <img slot="icon" src="../../../assets/images/icon_invite_friends.png" width="24" height="24">
-            </mt-cell>
+            <router-link to="/cart">
+                <mt-cell title="购物车" is-link >
+                    <img slot="icon" src="../../../assets/images/icon_invite_friends.png" width="24" height="24">
+                </mt-cell>
+            </router-link>
             <mt-cell title="实名认证" is-link>
                 <span>审核通过</span>
                 <img slot="icon" src="../../../assets/images/icon_real_name.png" width="24" height="24">
@@ -59,6 +61,7 @@ export default {
 };
 </script>
 <style scoped>
+a{text-decoration: none;color: #000;}
 .wrap{
     width: 100%;
 }
