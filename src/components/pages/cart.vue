@@ -28,8 +28,8 @@
                             <div class="clearfix"></div>
 
                             <div class="product-num">
-                                <a href="javascript:;" class="num-reduce num-do fl" @click="item.score--">-<span></span></a>
-                                <input type="text" class="num-input" v-model="item.score">
+                                <a href="javascript:;" class="num-reduce num-do fl" @click="item.score > 0 && item.score--">-<span></span></a>
+                                <input type="text" class="num-input" v-model="item.score" min="0">
                                 <a href="javascript:;" class="num-add num-do fr" @click="item.score++">+<span></span></a>
                             </div>
 
@@ -124,7 +124,8 @@ export default {
                     console.log(err);
                 }
             )
-        }
+        },
+
     }
   
 }
